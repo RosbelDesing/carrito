@@ -12,10 +12,15 @@
     box-sizing: border-box;
 }
 
-:root{ 
+:root{
     --btn:rgb(239, 94, 16);
     --card:rgb(26, 25, 25);
     --bg:rgb(12, 12, 12);
+}
+
+::placeholder {
+  font-family: 'Poiret One', cursive;
+  font-weight: 800;
 }
 
 html{
@@ -112,19 +117,17 @@ header nav ul li{
 }
 
 
-header nav ul .especial{
-    background-color:var(--btn);
-    border-radius:1em;
-    padding:0.4em 0.4em;
-    cursor:pointer;
-    margin:0 30px;
-    transition:300ms all;
-    font-weight: 600;
+
+
+header .especial ion-icon{
+  font-size: 50px;
+  cursor:pointer;
+  margin:0 30px;
+  transition:300ms all;
+  font-weight: 600;
+  color: #fff;
 }
 
-header nav ul .especial:hover{
-    box-shadow: 1px 1px 10px var(--btn);
-}
 
 @media (max-width:771px) {
     header .btn-toggle{
@@ -246,6 +249,7 @@ header nav ul .especial:hover{
     justify-content: center;
     align-items: center;
     gap:2px;
+    letter-spacing: 3px;
 }
 
 .shop .card .btn-buy{
@@ -283,18 +287,34 @@ header nav ul .especial:hover{
     padding:0.2em;
 }
 
+.shop .category-selector{
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 /*Modal*/
 .modal-container{
     background-color:var(--card);
-    padding:1em;
+    padding:2em 0.8em;
+    position:fixed;
+    top: 70px;
+    width: 100%;
+    overflow: auto;
+    height: 90%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transition: 300ms;
+    z-index: 1000;
 }
 
 .modal-container .modal-header{
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding:0 1em;
-    margin:0 0 30px 0;
+    padding:0 0.5em;
+    margin:0 0 40px 0;
 }
 
 .modal-container .modal-header .modal-title{
@@ -302,6 +322,11 @@ header nav ul .especial:hover{
     font-size:30px;
     font-weight: 600;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    letter-spacing: 3px;
 }
 
 .modal-container .modal-header .modal-btn-close{
@@ -322,17 +347,18 @@ header nav ul .especial:hover{
     display:flex;
     justify-content: space-evenly;
     align-items: center;
-    margin:20px 0;
+    margin:20px 10px;
     border-bottom: solid 2px #fff;
     padding:0 0 1em 0;
 }
 
 .modal-container .modal-content .img-mini{
-    width: 60px;
+    width: 30px;
+    border-radius: 3px;
 }
 
 .modal-container .modal-content .product-name-cart{
-    font-size:23px;
+    font-size:18px;
     color:#fff;
     font-weight: 600;
 }
@@ -344,23 +370,33 @@ header nav ul .especial:hover{
 }
 
 .modal-container .modal-content .product-price-cart{
-    font-size:23px;
+    font-size:18px;
     color:#fff;
     font-weight: 600;
     display:flex;
     justify-content: center;
     align-items: center;
-    gap:3px;
+    gap:1px;
+    letter-spacing: 3px;
+}
+
+.modal-container .product-amount {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 
 .total-content{
-    background-color:var(--btn);
-    padding:1em 1em;
-    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .total-content .total{
-    font-size:25px;
+    background-color:var(--btn);
+    font-size:20px;
     color:#fff;
     font-weight: bold;
     display:flex;
@@ -368,4 +404,421 @@ header nav ul .especial:hover{
     align-items: center;
     gap:3px;
     letter-spacing: 3px;
+    padding:1em 1em;
+    border-radius: 10px;
+}
+
+.btn-pedido{
+  width: min-content;
+  background-color: var(--btn);
+  color:#fff;
+  font-size: 24px;
+  padding: 0.6em 1em;
+  margin: 30px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:5px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 200ms all;
+}
+
+.btn-pedido:hover{
+  box-shadow: 2px 2px 10px var(--btn);
+}
+
+.cart-hidden{
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+/*Boton de eliminar elemento del carrito*/
+.btn-delete{
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/*cantidad en carrito*/
+.cart-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cantidad-cart{
+  width: 20px;
+  text-align: center;
+  font-size: 12px;
+  right: 35px;
+  top:35px;
+  color: #fff;
+  position: absolute;
+  background-color: red;
+  font-weight: 600;
+  padding: 3px;
+  border-radius: 50%;
+  display: none;
+}
+
+/*Formulario de nuermo de mesa*/
+.form {
+  min-height: 100vh;
+  padding: 1em 1.3em;
+  background-color: rgba(0,0,0,.8);
+  backdrop-filter:blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:10px;
+  width: 100%;
+  position: fixed;
+  top:0;
+  z-index: 10000;
+}
+
+.form img {
+  width: 200px;
+}
+
+.form .title {
+  text-align: center;
+  font-size: 30px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.form .subtitle {
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+  margin: 20px 0 0 0;
+}
+
+.form .input-number {
+  font-size:20px;
+  width: min-content;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 30px;
+  margin: 20px 0 0 0;
+  outline: none;
+  border: none;
+}
+
+.form .input-number.error--input{
+  border: 2px solid red;
+  color: red;
+}
+
+.form .submit-btn {
+  font-size: 20px;
+  padding: 0.3em 1em;
+  border-radius: 7px;
+  border: none;
+  margin: 20px;
+  background-color: var(--btn);
+  color: #fff;
+  cursor: pointer;
+}
+
+.form .error {
+  color:red;
+  font-size: 23px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:0.4em;
+  display: none;
+}
+
+.form .error.mostrar {
+  display: flex;
+}
+
+/*Contenedor de todos los alergenos*/
+.allergens-title{
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  margin: 30px 0 15px 0;
+}
+.allergens-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding:1em 2em;
+  gap:20px;
+  background-color: var(--card);
+}
+
+@@media (max-width:700px) {
+  .allergens-content {
+    padding:0em 0.4em;
+  }
+}
+
+.allergens-content .box{
+  border: 1px solid #fff;
+  padding: 0.4em;
+}
+
+.allergens-content .allergens{
+  width: 60px;
+}
+
+.allergens-content .allergens-name{
+  font-style: 18px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/*Cofirmacion de pedido*/
+.cofirm-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--btn);
+  min-height: 40%;
+  width: 100vw;
+  padding:1em 0.4em;
+  gap:1em;
+  transform: translateY(100%);
+  transition: 300ms;
+  z-index: 1000;
+}
+
+.cofirm-content.show {
+  transform: translateY(0);
+}
+
+.cofirm-content ion-icon{
+  font-size: 50px;
+  margin: 10px 0 0 0;
+  color: #fff;
+}
+
+.cofirm-content .cofirm-text{
+  color:#fff;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cofirm-content .btn-close-cofirm{
+  font-size: 24px;
+  margin:20px 0 40px 0;
+  padding: 0.2em 0.6em;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  transition: 200ms all;
+  border: none;
+  cursor: pointer;
+}
+
+/*Informacion de contacto google maps*/
+.contact-content{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1em 1em 2em 1em;
+}
+
+.contact-title{
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  margin: 40px 0 0 0;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:4px;
+}
+
+iframe {
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+@@media (max-width:700px) {
+  iframe{
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/*Footer*/
+footer {
+  background-image: url('fondo.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.footer-content{
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:2em;
+  padding: 1em;
+}
+
+.footer-content .net {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1em;
+}
+
+.footer-content .net ion-icon {
+  font-size: 40px;
+  color: #fff;
+  transition: 200ms all;
+}
+
+.footer-content .net ion-icon:hover {
+  transform: translateY(-4px);
+}
+
+.footer-content address {
+  color:#fff;
+  font-family: 'Poiret One', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:1em;
+}
+
+.footer-content address .dir{
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:3px;
+}
+
+.copy{
+  color: #fff;
+  font-size: 17px;
+  text-align: center;
+}
+
+/*Alertas de carrito vacio*/
+
+.alert-content{
+  position: fixed;
+  top:70px;
+  width: 100vw;
+  height: 90vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1.3em 1em;
+  z-index: 100000;
+}
+
+.alert-content.visible{
+  display: flex;
+}
+.alert-content .msg{
+  font-size: 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+  margin: 10px 0 30px 0;
+}
+
+.alert-content ion-icon{
+  font-size: 70px;
+  color:red;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.alert-content .alert-btn{
+  color:#fff;
+  font-size: 20px;
+  background-color: var(--btn);
+  padding: 0.3em 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 200ms all;
+}
+
+.alert-btn:hover{
+  box-shadow: 2px 2px 10px var(--btn);
+}
+
+
+/*Contenedor de contador de productos*/
+.contador-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.box-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+  flex-direction: column;
+  min-width: 80px;
+}
+
+.restar,
+.sumar{
+  color:#fff;
+  font-size: 25px;
+}
+
+/*Estilos de form-Ifo para especificar cosas sobre el pedido*/
+.fomr-info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1em;
+}
+
+.form-info .input-textarea {
+  width: 100%;
+  margin:1em 0;
+  min-height: 130px;
+  padding: 0.5em;
+  text-align: center;
+  resize: none;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-family: 'Poiret One', cursive;
+  color: #000;
+  font-weight: 700;
+  border-radius: 10px;
+  margin:0 0 30px 0;
 }

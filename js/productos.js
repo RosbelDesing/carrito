@@ -1,3 +1,15 @@
+//Ver carrito
+const verCarrito = document.getElementById('carrito');
+const modalContainer = document.getElementById('modal-container');
+const shop = document.querySelector('.shop');
+const cantCarrito = document.getElementById('cantidad-cart');
+
+const cartCounter = () => {
+  cantCarrito.style.display = "block";
+  const itemSelect =cart.reduce((acc, el) => acc + el.cantidad, 0);
+  cantCarrito.innerHTML = itemSelect;
+}
+
 const productos = [
     {
         "id":1,
@@ -5,90 +17,100 @@ const productos = [
         "precio":4.00,
         "img":"image/aperitivo_1.jpg",
         "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":2,
         "nombre":"Pinchos de tortilla de patatas",
-        "precio":"2.80",
+        "precio":2,
         "img":"image/aperitivo_2.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":3,
         "nombre":"Boquerones en vinagre",
-        "precio":4.10,
+        "precio":4.40,
         "img":"image/aperitivo_3.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":4,
         "nombre":"Limón",
         "precio":2.00,
         "img":"image/jugo_1.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":5,
         "nombre":"Naranja",
-        "precio":2.80,
+        "precio":4,
         "img":"image/jugo_2.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":6,
         "nombre":"Manzana",
-        "precio":4.10,
+        "precio":7.20,
         "img":"image/jugo_3.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":7,
         "nombre":"Pizza de chorizo",
-        "precio":10.00,
+        "precio":10,
         "img":"image/pizza_1.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":8,
         "nombre":"Pizza de jamón",
-        "precio":9.80,
+        "precio":9.00,
         "img":"image/pizza_2.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":9,
         "nombre":"Pizza de atún",
-        "precio":4.10,
+        "precio":4.00,
         "img":"image/pizza_3.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":10,
         "nombre":"Cheesecak",
         "precio":6.00,
         "img":"image/cake_1.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":11,
         "nombre":"Tres leches",
-        "precio":10.80,
+        "precio":10.00,
         "img":"image/cake_2.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     },
     {
         "id":12,
         "nombre":"Tiramisú",
-        "precio":4.10,
+        "precio":4.90,
         "img":"image/cake_3.jpg",
-        "desc":"lorem impis desc lestro le as  adas derll lorem"
+        "desc":"lorem impis desc lestro le as  adas derll lorem",
+        "cantidad":1
     }
 ];
 
 
 let cart = [];
-
-const shop = document.querySelector('.shop');
 var count = 1;
 productos.forEach((product)=>{
     let card = document.createElement('div');
@@ -106,53 +128,33 @@ productos.forEach((product)=>{
     add.className = "btn-buy";
     add.innerHTML = '<ion-icon name="cart"></ion-icon> Añadir';
     add.addEventListener("click",() =>{
+      const repeat = cart.some((repeatProduct) => repeatProduct.id === product.id);
+      if(repeat){
+        cart.map((prod) => {
+          if(prod.id === product.id){
+            prod.cantidad++;
+          }
+        })
+      }else {
         cart.push({
             id: product.id,
             image: product.img,
             nombre: product.nombre,
-            precio: product.precio
-        })
-        console.log(cart);
+            precio: product.precio,
+            cantidad: product.cantidad
+        });
+      }
+      cartCounter();
     })
-     
+    
+
     shop.append(card);
 })
 
-//Ver carrito
-const verCarrito = document.getElementById('carrito');
-const modalContainer = document.getElementById('modal-container');
-verCarrito.addEventListener("click",()=>{
-    modalContainer.innerHTML = "";
-    const modalHeader = document.createElement('div');
-    modalHeader.className = "modal-header";
-    modalHeader.innerHTML = `<p class="modal-title">Su pedido</p>`;
-    modalContainer.append(modalHeader);
 
-    const modalbutton = document.createElement('p');
-    modalbutton.className = "modal-btn-close";
-    modalbutton.innerHTML = '<ion-icon name="close"></ion-icon>';
-    modalHeader.append(modalbutton);
 
-    cart.forEach((product)=>{
-        let cartContent = document.createElement('div');
-        cartContent.className = "modal-content";
-        cartContent.innerHTML = `
-        <img src="${product.image}" alt="product-Img" class="img-mini">
-        <p class="product-name-cart">${product.nombre}</p>
-        <p class="product-price-cart">${product.precio}<ion-icon name="logo-euro"></ion-icon></p>
-        `;
 
-        modalContainer.append(cartContent);
-    });
 
-    const total =cart.reduce((acc, el) => acc + el.precio, 0);
-    const totalBuying = document.createElement('div');
-    totalBuying.className = "total-content";
-    totalBuying.innerHTML = `
-    <p class="total">Total a pagar: ${total}<ion-icon name="logo-euro"></ion-icon></p>`;
-
-    modalContainer.append(totalBuying);
-})
 //Colocar allergenos en cartas especificas
 setAllergens(producto_1,'.card-1');
 setAllergens(producto_2,'.card-2');
