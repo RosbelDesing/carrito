@@ -158,14 +158,15 @@ const createCart = ()=> {
             body: encodedParams
           };
 
-          var textInfoTransalte = await fetch("https://text-translator2.p.rapidapi.com/translate",  OPTIONS).then(res => res.json());
+          var res = await fetch("https://text-translator2.p.rapidapi.com/translate", OPTIONS);
+          var textInfoTransalte = await res.json();
           console.log(textInfoTransalte);
-          return textInfoTransalte;
+          var textInfo = "\u26A0" + "*Aclaraciones: *" + "\u26A0" + "%0A" + textInfoTransalte;
+          return textInfo;
         }
 
-        Transalte(textInfo_);
+        var textInfo = Transalte(textInfo_);
 
-        var textInfo = "\u26A0" + "*Aclaraciones: *" + "\u26A0" + "%0A" + textInfoTransalte;
       }
       else{
         textInfo = "\u26A0" + "*Aclaraciones: *"+ "\u26A0" + "%0ANo%20hay%20aclaraciones%20por%20parte%20del%20cliente";
